@@ -171,7 +171,7 @@
     <label>Give Seanight an objective</label>
     <div class="objective-input-row">
       <textarea class="objective-input" id="objectiveInput" placeholder="e.g. Research the pros and cons of static site generators and recommend one for a personal blog"></textarea>
-      <button class="submit-btn" id="submitBtn">Go</button>
+      <button class="submit-btn" id="submitBtn" onclick="onSubmit()">Go</button>
     </div>
   </div>
 
@@ -191,11 +191,11 @@
 /* ============================================================
    CONFIG — fill these in before uploading to GitHub
    ============================================================ */
-const SUPABASE_URL = "https://xobztyuksezkpsnembbc.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable__eHs6HJGvXbrLgGmILS0oQ_qLLNOvfi";
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
 const DECISION_WRITE_SECRET = "x7Qm2vLpN9wTz4Rk8fJc1Ys"; // must match app_config in Supabase
 
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "PASTE_YOUR_OPENROUTER_KEY_HERE";
 const OPENROUTER_MODEL = "anthropic/claude-sonnet-4.5";
 
 const MAX_RETRIES_PER_SUBTASK = 2;
@@ -650,21 +650,33 @@ async function init() {
 
 let isRunning = false;
 async function onSubmit() {
-  if (isRunning) return;
-  const input = document.getElementById('objectiveInput');
-  const text = input.value.trim();
-  if (!text) return;
-  isRunning = true;
-  document.getElementById('submitBtn').disabled = true;
   try {
+    if (isRunning) return;
+    const input = document.getElementById('objectiveInput');
+    const text = input.value.trim();
+    if (!text) {
+      input.style.borderColor = 'var(--accent-error)';
+      setTimeout(() => { input.style.borderColor = ''; }, 1200);
+      return;
+    }
+    isRunning = true;
+    document.getElementById('submitBtn').disabled = true;
     await executeObjective(text);
+  } catch (err) {
+    document.getElementById('stage').innerHTML += `<div class="error-msg">onSubmit crashed: ${String(err && err.message || err)}</div>`;
   } finally {
     isRunning = false;
-    document.getElementById('submitBtn').disabled = false;
+    const btn = document.getElementById('submitBtn');
+    if (btn) btn.disabled = false;
   }
 }
 
-init();
+// Boot with a visible fallback if init() itself throws, so the page never fails silently
+init().catch(err => {
+  document.body.innerHTML += `<div style="position:fixed;bottom:0;left:0;right:0;background:#2a0e0e;color:#ff6b6b;font-family:monospace;font-size:12px;padding:16px;z-index:9999;">
+    Startup failed: ${String(err && err.message || err)}<br>Stack: ${String(err && err.stack || '').slice(0,500)}
+  </div>`;
+});
 </script>
 </body>
 </html>
