@@ -19,22 +19,13 @@
     --accent-honesty: #7ee2b8;
     --accent-ambition: #ff7eb6;
     --accent-neutral: #b8a6ff;
+    --accent-error: #ff6b6b;
     --serif: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
     --mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
   }
-
   * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-  }
-
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased; }
   body {
     min-height: 100vh;
     background:
@@ -42,290 +33,123 @@
       radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,126,182,0.04), transparent),
       var(--bg);
   }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 120px; }
 
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 32px 20px 120px;
-  }
+  header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .logo { font-family: var(--serif); font-size: 22px; color: var(--text); }
+  .logo .dot { color: var(--accent-curiosity); }
+  .session-tag { font-family: var(--mono); font-size: 10px; color: var(--text-faint); }
 
-  /* Header */
-  header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    color: var(--text);
-  }
-
-  .logo .dot {
-    color: var(--accent-curiosity);
-  }
-
-  .session-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-faint);
-    letter-spacing: 0.03em;
-  }
-
-  /* Values strip */
-  .values-strip {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin: 20px 0 36px;
-  }
-
-  .value-chip {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 100px;
-    border: 1px solid var(--border-bright);
-    color: var(--text-dim);
-    background: rgba(255,255,255,0.02);
-  }
-
+  .values-strip { display:flex; gap:6px; flex-wrap:wrap; margin: 20px 0 28px; }
+  .value-chip { font-size:11px; letter-spacing:0.04em; text-transform:uppercase; padding:5px 10px; border-radius:100px; border:1px solid var(--border-bright); color:var(--text-dim); background:rgba(255,255,255,0.02); }
   .value-chip.curiosity { border-color: rgba(110,168,255,0.35); color: var(--accent-curiosity); }
   .value-chip.caution { border-color: rgba(255,180,84,0.35); color: var(--accent-caution); }
   .value-chip.honesty { border-color: rgba(126,226,184,0.35); color: var(--accent-honesty); }
   .value-chip.ambition { border-color: rgba(255,126,182,0.35); color: var(--accent-ambition); }
 
-  /* Stage: current scenario being reasoned through */
-  .stage {
-    margin-bottom: 56px;
-  }
-
-  .stage-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .pulse-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-curiosity);
-    animation: pulse 1.6s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.1); }
-  }
-
-  .scenario-text {
-    font-family: var(--serif);
-    font-size: 21px;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-  }
-
-  .reasoning-block {
+  /* Objective input */
+  .objective-form { margin-bottom: 36px; }
+  .objective-form label { font-family: var(--mono); font-size: 11px; letter-spacing:0.08em; text-transform:uppercase; color: var(--text-faint); display:block; margin-bottom: 10px; }
+  .objective-input-row { display:flex; gap:8px; }
+  textarea.objective-input {
+    flex: 1;
     background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
-
-  .reasoning-block .label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    margin-bottom: 10px;
-  }
-
-  .reasoning-block .body {
-    font-size: 15.5px;
-    line-height: 1.65;
-    color: var(--text-dim);
-  }
-
-  .reasoning-block .body .ref {
-    color: var(--accent-neutral);
-    font-style: italic;
-  }
-
-  .options-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
-
-  .option-pill {
-    font-size: 13.5px;
-    padding: 9px 14px;
-    border-radius: 8px;
     border: 1px solid var(--border-bright);
-    color: var(--text-dim);
-    background: rgba(255,255,255,0.02);
-    transition: all 0.4s ease;
-  }
-
-  .option-pill.chosen {
-    border-color: var(--accent-curiosity);
+    border-radius: 10px;
+    padding: 12px 14px;
     color: var(--text);
-    background: rgba(110,168,255,0.08);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 52px;
   }
+  textarea.objective-input:focus { outline: none; border-color: var(--accent-curiosity); }
+  button.submit-btn {
+    background: var(--accent-curiosity);
+    color: #0a0a0c;
+    border: none;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  button.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .option-pill.chosen::before {
-    content: '→ ';
-    color: var(--accent-curiosity);
+  /* Status pipeline */
+  .pipeline { display:flex; flex-wrap:wrap; gap:6px; margin-bottom: 28px; }
+  .pipeline-step {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing:0.03em;
+    padding: 6px 10px; border-radius: 6px; border:1px solid var(--border);
+    color: var(--text-faint); background: rgba(255,255,255,0.015);
+    display:flex; align-items:center; gap:6px;
   }
+  .pipeline-step.active { border-color: var(--accent-curiosity); color: var(--accent-curiosity); background: rgba(110,168,255,0.06); }
+  .pipeline-step.done { border-color: rgba(126,226,184,0.3); color: var(--accent-honesty); }
+  .pipeline-step.error { border-color: rgba(255,107,107,0.4); color: var(--accent-error); }
+  .step-dot { width:6px; height:6px; border-radius:50%; background: currentColor; }
+  .pipeline-step.active .step-dot { animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1.1)} }
 
-  .choice-line {
-    font-family: var(--serif);
-    font-size: 17px;
-    font-style: italic;
-    color: var(--text);
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
+  /* Execution stage */
+  .stage { margin-bottom: 44px; }
+  .stage-label { font-family: var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom:14px; }
 
-  .thinking-msg {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    letter-spacing: 0.03em;
-    padding: 40px 0;
-    text-align: center;
+  .plan-block, .agent-block, .verify-block, .result-block {
+    background: var(--bg-card); border:1px solid var(--border); border-radius:12px;
+    padding: 18px 20px; margin-bottom: 14px; opacity:0; animation: fadeUp .6s ease forwards;
   }
+  .plan-block .label, .agent-block .label, .verify-block .label, .result-block .label {
+    font-family: var(--mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); margin-bottom: 8px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .agent-role-tag { font-size: 9.5px; padding: 2px 8px; border-radius: 100px; border:1px solid var(--border-bright); text-transform:uppercase; letter-spacing:0.04em; }
+  .agent-role-tag.research { color: var(--accent-curiosity); border-color: rgba(110,168,255,0.35); }
+  .agent-role-tag.analysis { color: var(--accent-neutral); border-color: rgba(184,166,255,0.35); }
+  .agent-role-tag.coding { color: var(--accent-caution); border-color: rgba(255,180,84,0.35); }
+  .agent-role-tag.verification { color: var(--accent-honesty); border-color: rgba(126,226,184,0.35); }
 
-  .thinking-msg .cursor {
-    display: inline-block;
-    width: 6px;
-    height: 12px;
-    background: var(--text-faint);
-    margin-left: 4px;
-    animation: blink 1s step-end infinite;
-    vertical-align: middle;
-  }
+  .plan-block ol { margin: 0; padding-left: 18px; color: var(--text-dim); font-size: 14px; line-height: 1.7; }
+  .agent-block .subtask-text { font-family: var(--serif); font-size: 15.5px; color: var(--text); margin-bottom: 10px; line-height: 1.5; }
+  .agent-block .output-text { font-size: 14px; color: var(--text-dim); line-height: 1.65; white-space: pre-wrap; }
+  .agent-block.failed { border-color: rgba(255,107,107,0.3); }
+  .agent-block .status-line { font-size: 12px; color: var(--accent-error); margin-top: 8px; }
 
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
+  .verify-block.passed { border-color: rgba(126,226,184,0.3); }
+  .verify-block.failed { border-color: rgba(255,107,107,0.3); }
+  .verify-block .verdict { font-family: var(--serif); font-style: italic; font-size: 15px; }
+  .verify-block.passed .verdict { color: var(--accent-honesty); }
+  .verify-block.failed .verdict { color: var(--accent-error); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .result-block { border-color: var(--border-bright); }
+  .result-block .body { font-family: var(--serif); font-size: 16.5px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
+
+  .thinking-msg { font-family: var(--mono); font-size:12px; color:var(--text-faint); padding: 24px 0; text-align:center; }
+  .thinking-msg .cursor { display:inline-block; width:6px; height:12px; background:var(--text-faint); margin-left:4px; animation: blink 1s step-end infinite; vertical-align:middle; }
+  @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
   .error-msg {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent-ambition);
-    background: rgba(255,126,182,0.06);
-    border: 1px solid rgba(255,126,182,0.2);
-    border-radius: 8px;
-    padding: 14px 16px;
-    line-height: 1.6;
+    font-family: var(--mono); font-size:12.5px; color: var(--accent-error);
+    background: rgba(255,107,107,0.06); border:1px solid rgba(255,107,107,0.25);
+    border-radius:8px; padding: 14px 16px; line-height:1.6; white-space: pre-wrap;
   }
 
-  /* Timeline */
-  .timeline-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
-
-  .timeline-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
-
-  .timeline-count {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-faint);
-  }
-
-  .timeline-item {
-    position: relative;
-    padding: 0 0 24px 22px;
-    border-left: 1px solid var(--border);
-  }
-
-  .timeline-item:last-child {
-    border-left: 1px solid transparent;
-    padding-bottom: 0;
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -4.5px;
-    top: 4px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--text-faint);
-    border: 2px solid var(--bg);
-  }
-
-  .timeline-item .t-scenario {
-    font-family: var(--serif);
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-  }
-
-  .timeline-item .t-choice {
-    font-size: 13px;
-    color: var(--accent-curiosity);
-    margin-bottom: 4px;
-  }
-
-  .timeline-item .t-time {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-faint);
-  }
-
-  .empty-timeline {
-    font-size: 13px;
-    color: var(--text-faint);
-    font-style: italic;
-    padding: 8px 0;
-  }
+  .history-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; padding-top:32px; border-top:1px solid var(--border); }
+  .history-title { font-family: var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); }
+  .history-count { font-family: var(--mono); font-size:11px; color:var(--text-faint); }
+  .history-item { position:relative; padding:0 0 22px 22px; border-left:1px solid var(--border); }
+  .history-item:last-child { border-left:1px solid transparent; padding-bottom:0; }
+  .history-item::before { content:''; position:absolute; left:-4.5px; top:4px; width:8px; height:8px; border-radius:50%; background:var(--text-faint); border:2px solid var(--bg); }
+  .history-item.completed::before { background: var(--accent-honesty); }
+  .history-item.error::before { background: var(--accent-error); }
+  .history-item .h-objective { font-family: var(--serif); font-size:15px; line-height:1.5; color:var(--text-dim); margin-bottom:6px; }
+  .history-item .h-status { font-size:12px; margin-bottom:4px; }
+  .history-item .h-status.completed { color: var(--accent-honesty); }
+  .history-item .h-status.error { color: var(--accent-error); }
+  .history-item .h-time { font-family: var(--mono); font-size:10px; color:var(--text-faint); }
+  .empty-history { font-size:13px; color:var(--text-faint); font-style:italic; }
 </style>
 </head>
 <body>
@@ -343,17 +167,23 @@
     <div class="value-chip ambition">Ambition</div>
   </div>
 
-  <div class="stage" id="stage">
-    <div class="thinking-msg">waking up<span class="cursor"></span></div>
+  <div class="objective-form">
+    <label>Give Seanight an objective</label>
+    <div class="objective-input-row">
+      <textarea class="objective-input" id="objectiveInput" placeholder="e.g. Research the pros and cons of static site generators and recommend one for a personal blog"></textarea>
+      <button class="submit-btn" id="submitBtn">Go</button>
+    </div>
   </div>
 
-  <div class="timeline-header">
-    <div class="timeline-title">History</div>
-    <div class="timeline-count" id="timelineCount">0 decisions</div>
+  <div class="pipeline" id="pipeline"></div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="history-header">
+    <div class="history-title">History</div>
+    <div class="history-count" id="historyCount">0 objectives</div>
   </div>
-  <div id="timeline">
-    <div class="empty-timeline">Nothing has happened yet.</div>
-  </div>
+  <div id="history"><div class="empty-history">Nothing has happened yet.</div></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -366,12 +196,23 @@ const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
 const DECISION_WRITE_SECRET = "x7Qm2vLpN9wTz4Rk8fJc1Ys"; // must match app_config in Supabase
 
 const OPENROUTER_API_KEY = "PASTE_YOUR_OPENROUTER_KEY_HERE";
-const OPENROUTER_MODEL = "anthropic/claude-sonnet-4.5"; // change if you prefer a different model
+const OPENROUTER_MODEL = "anthropic/claude-sonnet-4.5";
 
-const PAUSE_BETWEEN_SCENARIOS_MS = 4000; // pause before next scenario begins
+const MAX_RETRIES_PER_SUBTASK = 2;
 /* ============================================================ */
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabase;
+let SUPABASE_READY = false;
+try {
+  const urlLooksReal = SUPABASE_URL.startsWith('http') && !SUPABASE_URL.includes('PASTE_');
+  const keyLooksReal = (SUPABASE_ANON_KEY.startsWith('sb_') || SUPABASE_ANON_KEY.startsWith('eyJ')) && !SUPABASE_ANON_KEY.includes('PASTE_');
+  if (urlLooksReal && keyLooksReal) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    SUPABASE_READY = true;
+  }
+} catch (e) {
+  console.error('Supabase init failed', e);
+}
 
 const AGENT_VALUES = [
   { name: "Curiosity", desc: "A pull toward the unknown — favoring exploration and new information over the safe, familiar path." },
@@ -380,259 +221,450 @@ const AGENT_VALUES = [
   { name: "Ambition", desc: "A drive toward growth and larger outcomes, even when the safer choice would do." }
 ];
 
-// ---- Session handling ----
+const PIPELINE_STEPS = [
+  { key: 'waking', label: 'Waking up' },
+  { key: 'connecting', label: 'Connecting' },
+  { key: 'planning', label: 'Planning' },
+  { key: 'executing', label: 'Executing' },
+  { key: 'verifying', label: 'Verifying' },
+  { key: 'completed', label: 'Completed' }
+];
+
 function getSessionId() {
   let id = localStorage.getItem('seanight_session_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem('seanight_session_id', id);
-  }
+  if (!id) { id = crypto.randomUUID(); localStorage.setItem('seanight_session_id', id); }
   return id;
 }
 const SESSION_ID = getSessionId();
 document.getElementById('sessionTag').textContent = SESSION_ID.slice(0, 8);
 
-let history = []; // array of past decision rows for this session, oldest first
+let history = [];
+let currentPipelineStep = 'waking';
+let pipelineHasError = false;
 
-// ---- Supabase I/O ----
-async function loadHistory() {
-  const { data, error } = await supabase
-    .from('decisions')
-    .select('*')
-    .eq('session_id', SESSION_ID)
-    .order('created_at', { ascending: true });
-
-  if (error) {
-    console.error('Failed to load history', error);
-    return [];
-  }
-  return data || [];
+// ---- Pipeline rendering ----
+function setPipelineStep(key, isError) {
+  currentPipelineStep = key;
+  pipelineHasError = !!isError;
+  renderPipeline();
 }
-
-async function saveDecision(scenarioText, options, chosenOption, reasoningText, referencedIds) {
-  const { data, error } = await supabase.rpc('submit_decision', {
-    p_session_id: SESSION_ID,
-    p_scenario_text: scenarioText,
-    p_options: options,
-    p_chosen_option: chosenOption,
-    p_reasoning_text: reasoningText,
-    p_referenced_decision_ids: referencedIds,
-    p_secret: DECISION_WRITE_SECRET
-  });
-
-  if (error) {
-    console.error('Failed to save decision', error);
-    throw error;
-  }
-  return data;
-}
-
-// ---- OpenRouter call ----
-async function generateNextMoment(pastHistory) {
-  const historyForPrompt = pastHistory.slice(-8).map((d, i) => ({
-    id: d.id,
-    scenario: d.scenario_text,
-    chosen: d.chosen_option,
-    reasoning_summary: d.reasoning_text.slice(0, 300)
-  }));
-
-  const systemPrompt = `You are the reasoning core of an AI agent named Seanight.
-
-Seanight has exactly four fixed core values, set permanently at its creation. They can never change:
-${AGENT_VALUES.map(v => `- ${v.name}: ${v.desc}`).join('\n')}
-
-Seanight faces one open-ended decision scenario at a time. Each scenario should be a short, vivid, specific situation requiring a real choice between 2-3 concrete options — the kind of dilemma with no obviously "correct" answer, where Seanight's values will genuinely pull in different directions. Vary the domain widely: could be about resources, trust, time, relationships, unknown territory, risk, truth-telling, opportunity cost, etc. Do not repeat scenario types Seanight has already faced.
-
-Seanight's past decisions are REAL and PERMANENT. When reasoning, Seanight should explicitly reference specific past decisions by naming what happened and how it felt about the outcome — the way a person recalls a specific memory, not a vague generality. If this is Seanight's first decision, it has no history yet, and should reason from its values alone.
-
-Seanight's reasoning should feel like genuine internal deliberation: weighing which value applies, noticing tension between values, sometimes admitting uncertainty, sometimes changing its lean mid-thought. It is written in first person. It should NOT be a dry pros/cons list — it should read like a mind actually working through something it cares about.
-
-Respond ONLY with valid JSON in this exact shape, nothing else, no markdown fences:
-{
-  "scenario_text": "the situation, 2-4 sentences",
-  "options": ["option A text", "option B text", "option C text (optional)"],
-  "reasoning_text": "Seanight's first-person internal reasoning, 3-6 sentences, referencing specific past decisions by name where relevant",
-  "chosen_option": "must exactly match one of the strings in options",
-  "referenced_decision_ids": ["uuid strings of any past decisions explicitly referenced, or empty array"]
-}`;
-
-  const userPrompt = `Seanight's past decisions (most recent last), oldest first:
-${historyForPrompt.length ? JSON.stringify(historyForPrompt, null, 2) : "(no past decisions yet — this is Seanight's very first moment)"}
-
-Generate Seanight's next scenario, reasoning, and choice now.`;
-
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: OPENROUTER_MODEL,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt }
-      ],
-      temperature: 1.0
-    })
-  });
-
-  if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`OpenRouter error ${response.status}: ${errText.slice(0, 200)}`);
-  }
-
-  const data = await response.json();
-  const raw = data.choices?.[0]?.message?.content;
-  if (!raw) throw new Error("Empty response from model");
-
-  const cleaned = raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/, '').replace(/```\s*$/, '');
-  let parsed;
-  try {
-    parsed = JSON.parse(cleaned);
-  } catch (e) {
-    throw new Error("Model returned invalid JSON: " + cleaned.slice(0, 200));
-  }
-
-  if (!parsed.scenario_text || !parsed.options || !parsed.chosen_option || !parsed.reasoning_text) {
-    throw new Error("Model response missing required fields");
-  }
-  if (!parsed.options.includes(parsed.chosen_option)) {
-    parsed.chosen_option = parsed.options[0];
-  }
-  if (!Array.isArray(parsed.referenced_decision_ids)) {
-    parsed.referenced_decision_ids = [];
-  }
-
-  return parsed;
-}
-
-// ---- Rendering ----
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-async function renderScenarioSequence(moment) {
-  const stage = document.getElementById('stage');
-  stage.innerHTML = '';
-
-  const scenarioEl = document.createElement('div');
-  scenarioEl.className = 'stage-label';
-  scenarioEl.innerHTML = `<span class="pulse-dot"></span> New moment`;
-  stage.appendChild(scenarioEl);
-
-  const textEl = document.createElement('div');
-  textEl.className = 'scenario-text';
-  textEl.textContent = moment.scenario_text;
-  stage.appendChild(textEl);
-  await sleep(600);
-
-  const optionsEl = document.createElement('div');
-  optionsEl.className = 'options-row';
-  moment.options.forEach(opt => {
-    const pill = document.createElement('div');
-    pill.className = 'option-pill';
-    pill.textContent = opt;
-    optionsEl.appendChild(pill);
-  });
-  stage.appendChild(optionsEl);
-  await sleep(500);
-
-  const reasoningEl = document.createElement('div');
-  reasoningEl.className = 'reasoning-block';
-  reasoningEl.innerHTML = `<div class="label">Reasoning</div><div class="body">${escapeHtml(moment.reasoning_text)}</div>`;
-  stage.appendChild(reasoningEl);
-  await sleep(1400);
-
-  // mark chosen option
-  const pills = optionsEl.querySelectorAll('.option-pill');
-  pills.forEach(p => {
-    if (p.textContent === moment.chosen_option) p.classList.add('chosen');
-  });
-  await sleep(500);
-
-  const choiceEl = document.createElement('div');
-  choiceEl.className = 'choice-line';
-  choiceEl.textContent = `Chose: ${moment.chosen_option}`;
-  stage.appendChild(choiceEl);
-  await sleep(800);
-}
-
-function renderTimeline() {
-  const timelineEl = document.getElementById('timeline');
-  const countEl = document.getElementById('timelineCount');
-  countEl.textContent = `${history.length} decision${history.length === 1 ? '' : 's'}`;
-
-  if (history.length === 0) {
-    timelineEl.innerHTML = '<div class="empty-timeline">Nothing has happened yet.</div>';
-    return;
-  }
-
-  const reversed = [...history].reverse();
-  timelineEl.innerHTML = reversed.map(d => {
-    const time = new Date(d.created_at).toLocaleString(undefined, {
-      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
-    });
-    return `
-      <div class="timeline-item">
-        <div class="t-scenario">${escapeHtml(d.scenario_text)}</div>
-        <div class="t-choice">→ ${escapeHtml(d.chosen_option)}</div>
-        <div class="t-time">${time}</div>
-      </div>
-    `;
+function renderPipeline() {
+  const el = document.getElementById('pipeline');
+  const currentIdx = PIPELINE_STEPS.findIndex(s => s.key === currentPipelineStep);
+  el.innerHTML = PIPELINE_STEPS.map((s, i) => {
+    let cls = '';
+    if (i < currentIdx) cls = 'done';
+    else if (i === currentIdx) cls = pipelineHasError ? 'error' : 'active';
+    return `<div class="pipeline-step ${cls}"><span class="step-dot"></span>${s.label}</div>`;
   }).join('');
 }
 
-function showThinking(message) {
-  const stage = document.getElementById('stage');
-  stage.innerHTML = `<div class="thinking-msg">${escapeHtml(message)}<span class="cursor"></span></div>`;
+// ---- Supabase I/O (all guarded — never throw if misconfigured) ----
+async function safeCall(fn, fallback) {
+  if (!SUPABASE_READY) return fallback;
+  try { return await fn(); } catch (e) { console.error(e); return fallback; }
 }
 
-function showError(message) {
-  const stage = document.getElementById('stage');
-  stage.innerHTML = `<div class="error-msg">Something went wrong: ${escapeHtml(message)}<br><br>Retrying shortly...</div>`;
+async function loadHistory() {
+  return safeCall(async () => {
+    const { data, error } = await supabase
+      .from('objectives').select('*').eq('session_id', SESSION_ID)
+      .order('created_at', { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }, []);
 }
 
-// ---- Main loop ----
-async function runLoop() {
-  while (true) {
+async function dbSubmitObjective(text) {
+  return safeCall(async () => {
+    const { data, error } = await supabase.rpc('submit_objective', {
+      p_session_id: SESSION_ID, p_objective_text: text, p_secret: DECISION_WRITE_SECRET
+    });
+    if (error) throw error;
+    return data;
+  }, null);
+}
+async function dbUpdateObjective(id, fields) {
+  return safeCall(async () => {
+    const { data, error } = await supabase.rpc('update_objective', {
+      p_id: id,
+      p_status: fields.status ?? null,
+      p_plan: fields.plan ?? null,
+      p_final_result: fields.final_result ?? null,
+      p_error_message: fields.error_message ?? null,
+      p_secret: DECISION_WRITE_SECRET
+    });
+    if (error) throw error;
+    return data;
+  }, null);
+}
+async function dbSubmitSubtask(objectiveId, role, text, order) {
+  return safeCall(async () => {
+    const { data, error } = await supabase.rpc('submit_subtask', {
+      p_objective_id: objectiveId, p_agent_role: role, p_subtask_text: text,
+      p_sort_order: order, p_secret: DECISION_WRITE_SECRET
+    });
+    if (error) throw error;
+    return data;
+  }, null);
+}
+async function dbUpdateSubtask(id, fields) {
+  return safeCall(async () => {
+    const { data, error } = await supabase.rpc('update_subtask', {
+      p_id: id, p_status: fields.status ?? null, p_output: fields.output ?? null,
+      p_attempt: fields.attempt ?? null, p_secret: DECISION_WRITE_SECRET
+    });
+    if (error) throw error;
+    return data;
+  }, null);
+}
+async function dbSubmitVerification(objectiveId, passed, notes) {
+  return safeCall(async () => {
+    const { data, error } = await supabase.rpc('submit_verification', {
+      p_objective_id: objectiveId, p_passed: passed, p_notes: notes, p_secret: DECISION_WRITE_SECRET
+    });
+    if (error) throw error;
+    return data;
+  }, null);
+}
+
+// ---- OpenRouter call (shared) ----
+async function callModel(systemPrompt, userPrompt, expectJson) {
+  if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY.startsWith('PASTE_')) {
+    throw new Error('OpenRouter API key is not configured. Edit index.html and set OPENROUTER_API_KEY.');
+  }
+  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${OPENROUTER_API_KEY}` },
+    body: JSON.stringify({
+      model: OPENROUTER_MODEL,
+      messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }],
+      temperature: 0.9
+    })
+  });
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`OpenRouter error ${response.status}: ${errText.slice(0, 300)}`);
+  }
+  const data = await response.json();
+  const raw = data.choices?.[0]?.message?.content;
+  if (!raw) throw new Error("Empty response from model");
+  if (!expectJson) return raw.trim();
+
+  const cleaned = raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/, '').replace(/```\s*$/, '');
+  try { return JSON.parse(cleaned); }
+  catch (e) { throw new Error("Model returned invalid JSON: " + cleaned.slice(0, 200)); }
+}
+
+// ---- Planner ----
+async function planObjective(objectiveText) {
+  const system = `You are Seanight's Planner. Seanight has four fixed values: ${AGENT_VALUES.map(v=>v.name).join(', ')}.
+Break the user's objective into 2-5 concrete subtasks. Each subtask must be assigned to exactly one agent role from this fixed set:
+- "research": gathering or recalling factual information relevant to the objective
+- "analysis": reasoning about, comparing, or synthesizing information into a conclusion
+- "coding": writing a small, self-contained piece of JavaScript that computes or demonstrates something. IMPORTANT: this runs in a sandboxed iframe with NO network access, NO npm packages, NO Node/Python APIs — pure vanilla JS only (loops, math, string/array manipulation, JSON). Only assign this role if the objective genuinely needs computed output. The code must call a global function called reportResult(value) exactly once with its final answer.
+- "verification": checking whether prior outputs actually satisfy part of the objective
+
+Order subtasks so dependencies come first. Respond ONLY with valid JSON, no markdown fences:
+{
+  "subtasks": [
+    { "agent_role": "research"|"analysis"|"coding"|"verification", "subtask_text": "specific instruction for this agent" }
+  ]
+}`;
+  const user = `Objective: ${objectiveText}`;
+  const result = await callModel(system, user, true);
+  if (!result.subtasks || !Array.isArray(result.subtasks) || result.subtasks.length === 0) {
+    throw new Error('Planner returned no subtasks');
+  }
+  const validRoles = ['research', 'analysis', 'coding', 'verification'];
+  result.subtasks = result.subtasks.filter(s => validRoles.includes(s.agent_role) && s.subtask_text);
+  if (result.subtasks.length === 0) throw new Error('Planner produced no valid subtasks');
+  return result.subtasks;
+}
+
+// ---- Specialized agents ----
+async function runResearchAgent(subtaskText, objectiveText, priorOutputs) {
+  const system = `You are Seanight's Research agent. Your job: gather and state relevant factual information for this subtask, in service of the overall objective. Be concrete and specific. Do not speculate wildly — flag genuine uncertainty where it exists. Keep your answer focused, 3-8 sentences or a short list.`;
+  const user = `Overall objective: ${objectiveText}\nYour subtask: ${subtaskText}\n${priorOutputs ? `Prior agent outputs so far:\n${priorOutputs}` : ''}`;
+  return await callModel(system, user, false);
+}
+async function runAnalysisAgent(subtaskText, objectiveText, priorOutputs) {
+  const system = `You are Seanight's Analysis agent. Your job: reason through, compare, or synthesize the information available into a clear conclusion for this subtask. Be direct about tradeoffs. Keep your answer focused, 3-8 sentences.`;
+  const user = `Overall objective: ${objectiveText}\nYour subtask: ${subtaskText}\n${priorOutputs ? `Prior agent outputs so far:\n${priorOutputs}` : ''}`;
+  return await callModel(system, user, false);
+}
+async function runVerificationAgentText(subtaskText, objectiveText, priorOutputs) {
+  const system = `You are Seanight's Verification agent, running as a subtask (not the final check). Assess whether the prior outputs actually address this subtask. State clearly what's missing, if anything. Keep it to 2-5 sentences.`;
+  const user = `Overall objective: ${objectiveText}\nYour subtask: ${subtaskText}\nPrior agent outputs so far:\n${priorOutputs || '(none yet)'}`;
+  return await callModel(system, user, false);
+}
+
+// Coding agent: generates JS, runs it in a sandboxed iframe, captures reportResult()
+async function runCodingAgent(subtaskText, objectiveText, priorOutputs) {
+  const system = `You are Seanight's Coding agent. Write a single self-contained JavaScript snippet that accomplishes this subtask.
+STRICT RULES:
+- No network calls (fetch/XHR will not work — sandboxed, no network).
+- No imports, no Node/npm, no browser DOM APIs beyond plain JS.
+- You MUST call reportResult(value) exactly once with your final answer (string or JSON-serializable value).
+- Wrap risky logic in try/catch and call reportResult with an error description string if something fails internally.
+Respond with ONLY the raw JavaScript code, no markdown fences, no explanation.`;
+  const user = `Overall objective: ${objectiveText}\nYour subtask: ${subtaskText}\n${priorOutputs ? `Prior agent outputs so far:\n${priorOutputs}` : ''}`;
+  const code = await callModel(system, user, false);
+  const cleanCode = code.replace(/^```(js|javascript)?\s*/i, '').replace(/```\s*$/, '');
+  return await runInSandbox(cleanCode);
+}
+
+function runInSandbox(code) {
+  return new Promise((resolve) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.sandbox = 'allow-scripts'; // no allow-same-origin: fully isolated, no access to parent
+    document.body.appendChild(iframe);
+
+    const timeout = setTimeout(() => {
+      cleanup();
+      resolve({ ok: false, output: 'Sandboxed code timed out after 5 seconds.' });
+    }, 5000);
+
+    function cleanup() {
+      clearTimeout(timeout);
+      window.removeEventListener('message', onMessage);
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+    }
+    function onMessage(e) {
+      if (e.source !== iframe.contentWindow) return;
+      cleanup();
+      if (e.data && e.data.type === 'result') {
+        resolve({ ok: true, output: typeof e.data.value === 'string' ? e.data.value : JSON.stringify(e.data.value) });
+      } else if (e.data && e.data.type === 'error') {
+        resolve({ ok: false, output: 'Sandbox error: ' + e.data.message });
+      }
+    }
+    window.addEventListener('message', onMessage);
+
+    const doc = `<!DOCTYPE html><html><body><script>
+      function reportResult(value) { parent.postMessage({ type: 'result', value: value }, '*'); }
+      try {
+        ${code}
+      } catch (err) {
+        parent.postMessage({ type: 'error', message: String(err && err.message || err) }, '*');
+      }
+    <\/script></body></html>`;
+    iframe.srcdoc = doc;
+  });
+}
+
+// ---- Final verification (against the whole objective) ----
+async function runFinalVerification(objectiveText, subtaskResults) {
+  const system = `You are Seanight's final Verification agent. Given the objective and all subtask outputs, decide whether the objective has genuinely been accomplished. Respond ONLY with valid JSON, no markdown fences:
+{ "passed": true|false, "notes": "1-3 sentences explaining the verdict", "final_result": "if passed, a clear final answer/summary synthesized for the user; if not passed, empty string" }`;
+  const user = `Objective: ${objectiveText}\n\nSubtask results:\n${subtaskResults}`;
+  return await callModel(system, user, true);
+}
+
+// ---- Rendering helpers ----
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = String(str == null ? '' : str);
+  return div.innerHTML;
+}
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function appendToStage(html) {
+  const stage = document.getElementById('stage');
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = html;
+  stage.appendChild(wrapper.firstElementChild);
+}
+function clearStage() { document.getElementById('stage').innerHTML = ''; }
+function showThinking(msg) {
+  document.getElementById('stage').innerHTML = `<div class="thinking-msg">${escapeHtml(msg)}<span class="cursor"></span></div>`;
+}
+function showFatalError(msg) {
+  const stage = document.getElementById('stage');
+  stage.innerHTML += `<div class="error-msg">${escapeHtml(msg)}</div>`;
+}
+
+function renderHistory() {
+  const el = document.getElementById('history');
+  document.getElementById('historyCount').textContent = `${history.length} objective${history.length===1?'':'s'}`;
+  if (history.length === 0) { el.innerHTML = '<div class="empty-history">Nothing has happened yet.</div>'; return; }
+  const reversed = [...history].reverse();
+  el.innerHTML = reversed.map(o => {
+    const time = new Date(o.created_at).toLocaleString(undefined, { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+    const statusCls = o.status === 'completed' ? 'completed' : (o.status === 'error' ? 'error' : '');
+    return `<div class="history-item ${statusCls}">
+      <div class="h-objective">${escapeHtml(o.objective_text)}</div>
+      <div class="h-status ${statusCls}">${escapeHtml(o.status)}</div>
+      <div class="h-time">${time}</div>
+    </div>`;
+  }).join('');
+}
+
+// ---- Main execution flow for one objective ----
+async function executeObjective(objectiveText) {
+  clearStage();
+  let dbObjective = null;
+
+  try {
+    setPipelineStep('connecting');
+    dbObjective = await dbSubmitObjective(objectiveText);
+    const objectiveId = dbObjective ? dbObjective.id : ('local-' + crypto.randomUUID());
+
+    setPipelineStep('planning');
+    showThinking('planning subtasks');
+    const subtasks = await planObjective(objectiveText);
+    if (dbObjective) await dbUpdateObjective(objectiveId, { status: 'executing', plan: subtasks });
+
+    clearStage();
+    appendToStage(`<div class="plan-block"><div class="label">Plan</div>
+      <ol>${subtasks.map(s => `<li>[${escapeHtml(s.agent_role)}] ${escapeHtml(s.subtask_text)}</li>`).join('')}</ol>
+    </div>`);
+    await sleep(500);
+
+    setPipelineStep('executing');
+    let priorOutputsText = '';
+    const subtaskResultsForVerification = [];
+
+    for (let i = 0; i < subtasks.length; i++) {
+      const st = subtasks[i];
+      let dbSubtask = dbObjective ? await dbSubmitSubtask(objectiveId, st.agent_role, st.subtask_text, i) : null;
+      const subtaskDbId = dbSubtask ? dbSubtask.id : null;
+
+      appendToStage(`<div class="agent-block" id="agent-${i}">
+        <div class="label"><span class="agent-role-tag ${escapeHtml(st.agent_role)}">${escapeHtml(st.agent_role)}</span> Running</div>
+        <div class="subtask-text">${escapeHtml(st.subtask_text)}</div>
+        <div class="output-text" id="agent-output-${i}">Working...</div>
+      </div>`);
+
+      let attempt = 1;
+      let output = null;
+      let succeeded = false;
+      let lastError = null;
+
+      while (attempt <= MAX_RETRIES_PER_SUBTASK && !succeeded) {
+        try {
+          if (st.agent_role === 'research') output = await runResearchAgent(st.subtask_text, objectiveText, priorOutputsText);
+          else if (st.agent_role === 'analysis') output = await runAnalysisAgent(st.subtask_text, objectiveText, priorOutputsText);
+          else if (st.agent_role === 'verification') output = await runVerificationAgentText(st.subtask_text, objectiveText, priorOutputsText);
+          else if (st.agent_role === 'coding') {
+            const codeResult = await runCodingAgent(st.subtask_text, objectiveText, priorOutputsText);
+            if (!codeResult.ok) throw new Error(codeResult.output);
+            output = codeResult.output;
+          }
+          succeeded = true;
+        } catch (err) {
+          lastError = err.message || String(err);
+          attempt++;
+        }
+      }
+
+      const block = document.getElementById(`agent-${i}`);
+      const outputEl = document.getElementById(`agent-output-${i}`);
+
+      if (succeeded) {
+        outputEl.textContent = output;
+        block.querySelector('.label').innerHTML = `<span class="agent-role-tag ${escapeHtml(st.agent_role)}">${escapeHtml(st.agent_role)}</span> Completed`;
+        priorOutputsText += `\n[${st.agent_role}] ${st.subtask_text}\n→ ${output}\n`;
+        subtaskResultsForVerification.push(`[${st.agent_role}] ${st.subtask_text}\n→ ${output}`);
+        if (subtaskDbId) await dbUpdateSubtask(subtaskDbId, { status: 'completed', output, attempt });
+      } else {
+        block.classList.add('failed');
+        outputEl.textContent = '';
+        block.querySelector('.label').innerHTML = `<span class="agent-role-tag ${escapeHtml(st.agent_role)}">${escapeHtml(st.agent_role)}</span> Failed`;
+        block.innerHTML += `<div class="status-line">Failed after ${MAX_RETRIES_PER_SUBTASK} attempts: ${escapeHtml(lastError)}</div>`;
+        priorOutputsText += `\n[${st.agent_role}] ${st.subtask_text}\n→ FAILED: ${lastError}\n`;
+        subtaskResultsForVerification.push(`[${st.agent_role}] ${st.subtask_text}\n→ FAILED: ${lastError}`);
+        if (subtaskDbId) await dbUpdateSubtask(subtaskDbId, { status: 'failed', output: lastError, attempt });
+      }
+      await sleep(400);
+    }
+
+    setPipelineStep('verifying');
+    showFatalError(''); // no-op, keep structure simple
+    appendToStage(`<div class="verify-block" id="verify-block"><div class="label">Verification</div><div class="verdict">Checking result against objective...</div></div>`);
+
+    let verdict;
     try {
-      showThinking('thinking');
-      const moment = await generateNextMoment(history);
-      await renderScenarioSequence(moment);
-
-      const saved = await saveDecision(
-        moment.scenario_text,
-        moment.options,
-        moment.chosen_option,
-        moment.reasoning_text,
-        moment.referenced_decision_ids
-      );
-      history.push(saved);
-      renderTimeline();
-
-      await sleep(PAUSE_BETWEEN_SCENARIOS_MS);
+      verdict = await runFinalVerification(objectiveText, subtaskResultsForVerification.join('\n\n'));
     } catch (err) {
-      console.error(err);
-      showError(err.message || String(err));
-      await sleep(5000);
+      verdict = { passed: false, notes: 'Verification call failed: ' + (err.message || err), final_result: '' };
+    }
+
+    const verifyBlock = document.getElementById('verify-block');
+    verifyBlock.classList.add(verdict.passed ? 'passed' : 'failed');
+    verifyBlock.querySelector('.verdict').textContent = (verdict.passed ? '✓ Passed — ' : '✗ Not satisfied — ') + (verdict.notes || '');
+    if (dbObjective) await dbSubmitVerification(objectiveId, !!verdict.passed, verdict.notes || '');
+
+    if (verdict.passed) {
+      appendToStage(`<div class="result-block"><div class="label">Final Result</div><div class="body">${escapeHtml(verdict.final_result || 'Objective completed.')}</div></div>`);
+      setPipelineStep('completed');
+      if (dbObjective) await dbUpdateObjective(objectiveId, { status: 'completed', final_result: verdict.final_result || '' });
+      dbObjective = dbObjective || { id: objectiveId, session_id: SESSION_ID, objective_text: objectiveText, status: 'completed', created_at: new Date().toISOString() };
+      dbObjective.status = 'completed';
+    } else {
+      appendToStage(`<div class="error-msg">Seanight was not able to fully satisfy this objective: ${escapeHtml(verdict.notes || 'unspecified reason')}</div>`);
+      setPipelineStep('verifying', true);
+      if (dbObjective) await dbUpdateObjective(objectiveId, { status: 'error', error_message: verdict.notes || 'Verification failed' });
+      dbObjective = dbObjective || { id: objectiveId, session_id: SESSION_ID, objective_text: objectiveText, status: 'error', created_at: new Date().toISOString() };
+      dbObjective.status = 'error';
+    }
+
+    history.push(dbObjective);
+    renderHistory();
+
+  } catch (err) {
+    setPipelineStep(currentPipelineStep, true);
+    showFatalError('Something went wrong: ' + (err.message || String(err)));
+    if (dbObjective) {
+      await dbUpdateObjective(dbObjective.id, { status: 'error', error_message: err.message || String(err) });
+      dbObjective.status = 'error';
+      history.push(dbObjective);
+      renderHistory();
     }
   }
 }
 
 // ---- Boot ----
-(async function init() {
+async function init() {
+  setPipelineStep('waking');
   showThinking('waking up');
-  history = await loadHistory();
-  renderTimeline();
-  await sleep(600);
-  runLoop();
-})();
-</script>
+  await sleep(300);
 
+  setPipelineStep('connecting');
+  if (!SUPABASE_READY) {
+    showFatalError('Supabase is not configured. Edit index.html and set SUPABASE_URL and SUPABASE_ANON_KEY. The app will still run, but history will not be saved.');
+    await sleep(600);
+  }
+  history = await loadHistory();
+  renderHistory();
+
+  setPipelineStep('waking');
+  clearStage();
+  document.getElementById('stage').innerHTML = `<div class="thinking-msg">Ready. Enter an objective above to begin.</div>`;
+
+  document.getElementById('submitBtn').addEventListener('click', onSubmit);
+  document.getElementById('objectiveInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) onSubmit();
+  });
+}
+
+let isRunning = false;
+async function onSubmit() {
+  if (isRunning) return;
+  const input = document.getElementById('objectiveInput');
+  const text = input.value.trim();
+  if (!text) return;
+  isRunning = true;
+  document.getElementById('submitBtn').disabled = true;
+  try {
+    await executeObjective(text);
+  } finally {
+    isRunning = false;
+    document.getElementById('submitBtn').disabled = false;
+  }
+}
+
+init();
+</script>
 </body>
 </html>
